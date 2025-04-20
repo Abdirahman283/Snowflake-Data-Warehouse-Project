@@ -86,5 +86,5 @@ ORDER BY ORDER_COUNT DESC;
 ## 👨‍💻 Author
 
 **Abdirahman Abdillahi**  
-[LinkedIn](https://www.linkedin.com/in/abdirahmanabdillahi) | [GitHub](https://github.com/Abdirahman283)  
+[LinkedIn](https://www.linkedin.com/in/abdirahmnabdillahi/) | [GitHub](https://github.com/Abdirahman283)  
 *AWS Academy Data Engineer – 2025*
