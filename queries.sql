@@ -1,21 +1,22 @@
---Creer un warehouse DATASECURE_WH_JOHNDOE
+------------Configuration-----------------
+--Create a warehouse DATASECURE_WH_JOHNDOE
 USE ROLE TRAINING_ROLE;
 CREATE WAREHOUSE IF NOT EXISTS DATASECURE_WH_JOHNDOE;
 
 
 
---Creer une base de données DATASECURE_DB_JOHNDOE
+--Create a database DATASECURE_DB_JOHNDOE
 USE WAREHOUSE DATASECURE_WH_JOHNDOE;
 CREATE DATABASE IF NOT EXISTS DATASECURE_DB_JOHNDOE;
 
 
---Creer un schema DATASECURE_SCHEMA_JOHNDOE
+--Create a schema DATASECURE_SCHEMA_JOHNDOE
 USE WAREHOUSE DATASECURE_WH_JOHNDOE;
 USE DATABASE DATASECURE_DB_JOHNDOE;
 CREATE SCHEMA DATASECURE_SCHEMA_JOHNDOE;
 
 
---Creer une table nommée USER_T_JOHNDOE
+--Create a table called USER_T_JOHNDOE
 USE WAREHOUSE DATASECURE_WH_JOHNDOE;
 USE DATABASE DATASECURE_DB_JOHNDOE;
 USE SCHEMA DATASECURE_SCHEMA_JOHNDOE;
@@ -30,7 +31,7 @@ CREATE TABLE IF NOT EXISTS USER_T_JOHNDOE (
        ZipCode NUMBER(38,0),
        CreditCardNumber   VARCHAR(150));
 
---Creer une table ORDER_T_JOHNDOE
+--Creer a table ORDER_T_JOHNDOE
 USE WAREHOUSE DATASECURE_WH_JOHNDOE;
 USE DATABASE DATASECURE_DB_JOHNDOE;
 USE SCHEMA DATASECURE_SCHEMA_JOHNDOE;
@@ -41,7 +42,7 @@ CREATE TABLE IF NOT EXISTS ORDER_T_JOHNDOE (
         Amount  NUMBER(38,3),
         OrderDate DATE);
 
---Creer une table PRODUCT_INVENTORY_JOHNDOE
+--Create a table PRODUCT_INVENTORY_JOHNDOE
 USE WAREHOUSE DATASECURE_WH_JOHNDOE;
 USE DATABASE DATASECURE_DB_JOHNDOE;
 USE SCHEMA DATASECURE_SCHEMA_JOHNDOE;
@@ -52,7 +53,7 @@ CREATE TABLE IF NOT EXISTS PRODUCT_INVENTORY_JOHNDOE (
         Price NUMBER(38,3),
         StockQuantity NUMBER(38,0));
 
---Creer les file format
+--Create file format
 USE WAREHOUSE DATASECURE_WH_JOHNDOE;
 USE DATABASE DATASECURE_DB_JOHNDOE;
 --1
@@ -84,14 +85,14 @@ CREATE OR REPLACE FILE FORMAT FILE_FORMAT_PRODUCT
 
 
 
---Creer un stage interne MYSTAGE_JOHNDOE
+--Create an internal stage MYSTAGE_JOHNDOE
 USE WAREHOUSE DATASECURE_WH_JOHNDOE;
 USE DATABASE DATASECURE_DB_JOHNDOE;
 USE SCHEMA DATASECURE_SCHEMA_JOHNDOE;
 CREATE STAGE MYSTAGE_JOHNDOE;
 
 
---Copier donnes dans table
+--Copy data in tables
 --1
 USE WAREHOUSE DATASECURE_WH_JOHNDOE;
 USE DATABASE DATASECURE_DB_JOHNDOE;
@@ -123,8 +124,8 @@ FILE_FORMAT = (FORMAT_NAME = FILE_FORMAT_PRODUCT)
 ON_ERROR = CONTINUE;
 
 
------Requetes------
---Requête 1 : Lister 10 premiers utilisateurs avec leur âge et leurs localisation. 
+-----queries------
+--query 1 : List 10 first users with age and localisation. 
 SELECT 
     USERID,
     AGE,
@@ -133,7 +134,7 @@ FROM
     USER_T_JOHNDOE
 LIMIT 10;
 
---Requête 2 : Calculez le montant total des commandes passées par chaque utilisateur 
+--query 2 : Calculate total amout of orders for each user 
 SELECT 
     USERID,
     SUM(AMOUNT)
@@ -142,7 +143,7 @@ FROM
 GROUP BY 
     USERID;
 
---Requête 3 : Identifiez les produits les plus achetés et le nombre de fois qu’ils ont été commandés. 
+--query 3 : Identify les best selling products and numbers of orders for each one. 
 SELECT 
     PRODUCT, 
     COUNT(*) AS ORDERED_NB
@@ -153,7 +154,7 @@ GROUP BY
 ORDER BY 
     ORDERED_NB DESC;
 
----Requête 4 : Obtenez les commandes passées entre deux dates spécifiques, par exemple entre le 1er octobre 2024 et le 15 octobre 2024
+---query 4 : Get order between two specific date, for example between Octobre 1rst 2024 et le Octobre 15th 2024
 SELECT
     PRODUCT,
     ORDERDATE
@@ -161,7 +162,7 @@ FROM
     ORDER_T_JOHNDOE
 WHERE ORDERDATE  BETWEEN '2024-10-01' AND '2024-10-15';
 
----Requête 5 : Combinez les données des tables USERS et ORDERS pour voir les informations d’emplacement des utilisateurs et les détails de leurs commandes 
+---query 5 : Combine data of tables USERS et ORDERS to see locations informations of users and orders détails
 SELECT LOCATION,ZIPCODE,PRODUCT 
 FROM ORDER_T_JOHNDOE O
 JOIN USER_T_JOHNDOE U ON (O.USERID = U.USERID) ;
