@@ -46,7 +46,26 @@ This project simulates a real-world business case requiring the setup of a Snowf
 5. Join USERS and ORDERS tables to analyze user location and purchases
 
 ---
+## 📋 Example SQL Queries
 
+```sql
+-- 1. First 10 users with age and location
+SELECT USERID, AGE, LOCATION
+FROM USER_T_ABDIRAHMAN
+LIMIT 10;
+
+-- 2. Total order amount per user
+SELECT USERID, SUM(AMOUNT) AS TOTAL_AMOUNT
+FROM ORDER_T_ABDIRAHMAN
+GROUP BY USERID;
+
+-- 3. Most purchased products
+SELECT PRODUCT, COUNT(*) AS ORDER_COUNT
+FROM ORDER_T_ABDIRAHMAN
+GROUP BY PRODUCT
+ORDER BY ORDER_COUNT DESC;
+```
+❗ A file with many queries is available in the repository: queris.sql
 ## ✅ Outcomes
 
 - Built a clean Snowflake environment with full ingestion pipeline
