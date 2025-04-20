@@ -51,17 +51,17 @@ This project simulates a real-world business case requiring the setup of a Snowf
 ```sql
 -- 1. First 10 users with age and location
 SELECT USERID, AGE, LOCATION
-FROM USER_T_ABDIRAHMAN
+FROM USER_T_<NAME>
 LIMIT 10;
 
 -- 2. Total order amount per user
 SELECT USERID, SUM(AMOUNT) AS TOTAL_AMOUNT
-FROM ORDER_T_ABDIRAHMAN
+FROM ORDER_T_<NAME>
 GROUP BY USERID;
 
 -- 3. Most purchased products
 SELECT PRODUCT, COUNT(*) AS ORDER_COUNT
-FROM ORDER_T_ABDIRAHMAN
+FROM ORDER_T_<NAME>
 GROUP BY PRODUCT
 ORDER BY ORDER_COUNT DESC;
 ```
